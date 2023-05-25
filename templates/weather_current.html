@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Weather Current</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Station ID</th>
+          <th>Observation Time (Local)</th>
+          <th>Neighborhood</th>
+          <th>Humidity</th>
+          <th>Temperature</th>
+          <th>Heat Index</th>
+          <th>Dew Point</th>
+          <th>Wind Chill</th>
+          <th>Wind Speed</th>
+          <th>Wind Gust</th>
+          <th>Pressure</th>
+          <th>Precipitation Rate</th>
+          <th>Precipitation Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ stationID }}</td>
+          <td>{{ obsTimeLocal }}</td>
+          <td>{{ neighborhood }}</td>
+          <td>{{ humidity }}</td>
+          <td>{{ temp }}</td>
+          <td>{{ heatIndex }}</td>
+          <td>{{ dewpt }}</td>
+          <td>{{ windChill }}</td>
+          <td>{{ windSpeed }}</td>
+          <td>{{ windGust }}</td>
+          <td>{{ pressure }}</td>
+          <td>{{ precipRate }}</td>
+          <td>{{ precipTotal }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+

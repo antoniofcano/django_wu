@@ -1,0 +1,121 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-4 mb-4">Predicción</h1>
+
+        <h2>Resumen</h2>
+        {% if weather_forecast %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        {% for day in weather_forecast.dayOfWeek %}
+                            <th>{{ day }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Temp. Max.</td>
+                        {% for calendarDayTemperatureMax in weather_forecast.calendarDayTemperatureMax %}
+                            <td>{{ calendarDayTemperatureMax }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Temp. Min.</td>
+                        {% for calendarDayTemperatureMin in weather_forecast.calendarDayTemperatureMin %}
+                            <td>{{ calendarDayTemperatureMin }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Fase lunar</td>
+                        {% for phase in weather_forecast.moonPhase %}
+                            <td>{{ phase }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Anochece</td>
+                        {% for moonriseTimeLocal in weather_forecast.moonriseTimeLocal %}
+                            <td>{{ moonriseTimeLocal }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                    <td>Resumen</td>
+                        {% for narrative in weather_forecast.narrative %}
+                            <td>{{ narrative }}</td>
+                        {% endfor %}
+                    </tr>
+            </tbody>
+            </table>
+        {% else %}
+            <p>No hay datos disponibles.</p>
+        {% endif %}
+
+
+<h2>Detalle</h2>
+{% if weather_forecast %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      {% for daypartName in weather_forecast.daypart.0.daypartName %}
+      <th>{{ daypartName }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Predicción</td>
+      {% for data in weather_forecast.daypart %}
+      {% for narrative in data.narrative %}
+      <td>{{ narrative }}</td>
+      {% endfor %}
+      {% endfor %}
+    </tr>
+    <tr>
+      <td>Precipitación</td>
+      {% for prob, prec in combined_data %}
+         <td>{{ prob }}%  / {{ prec }}mm</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      <td>Humedad Relativa</td>
+      {% for data in weather_forecast.daypart %}
+      {% for humidity in data.relativeHumidity %}
+      <td>{{ humidity }}%</td>
+      {% endfor %}
+      {% endfor %}
+    </tr>
+    <tr>
+      <td>UV</td>
+      {% for data in weather_forecast.daypart %}
+      {% for uv_desc in data.uvDescription %}
+      <td>{{ uv_desc }}</td>
+      {% endfor %}
+      {% endfor %}
+    </tr>
+    <tr>
+      <td>Viento</td>
+      {% for data in weather_forecast.daypart %}
+      {% for wind_phrase in data.windPhrase %}
+      <td>{{ wind_phrase }}</td>
+      {% endfor %}
+      {% endfor %}
+    </tr>
+    <tr>
+      <td>Clima</td>
+      {% for data in weather_forecast.daypart %}
+      {% for wx_phrase in data.wxPhraseLong %}
+      <td>{{ wx_phrase }}</td>
+      {% endfor %}
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+
+
+    </div>
+{% endblock %}
